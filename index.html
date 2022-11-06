@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Streaming Basics</title>
+</head>
+<body>
+<h1>Streaming Basics</h1>
+<ol>
+    <li>video/Audio streaming</li>
+    <li>video recording</li>
+    <li>screen share</li>
+    <li>screen share and video recorder</li>
+</ol>
+
+
+<div class="main">
+    <audio autoplay controls id="mediaControl" muted></audio>
+    <br>
+    <label for="mediaControl">
+        Audio Media Control
+    </label>
+    <div class="controls" style="display: flex; flex-direction: row">
+        <button id="startButton">
+            Start Call
+        </button>
+        <button id="muteBtn" style="display: none">mute</button>
+        <button id="trackBtn" style="display: none">tracks</button>
+        <button id="stopBtn" style="display: none">Stop</button>
+    </div>
+    <div class="recording-controls" style="display: flex; flex-direction: row">
+        <button id="startRec">Record Recording</button>
+        <button id="pauseRec">Pause Recording</button>
+        <button id="stopRec">Stop Recording</button>
+        <button id="resumeRec">Resume Recording</button>
+        <a id="downloadRec">Downloading Recording</a>
+    </div>
+
+</div>
+
+
+</body>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="./js/main.js"></script>
+</html>
