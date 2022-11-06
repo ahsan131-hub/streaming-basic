@@ -15,11 +15,18 @@
 
 
 <div class="main">
-    <audio autoplay controls id="mediaControl" muted></audio>
+    <video autoplay controls height="400px"
+           id="mediaControl"
+           muted
+           width="400px"
+    ></video>
+    <video controls height="400px" id="demoVideoControl" muted width="400px"></video>
     <br>
     <label for="mediaControl">
         Audio Media Control
     </label>
+
+
     <div class="controls" style="display: flex; flex-direction: row">
         <button id="startButton">
             Start Call

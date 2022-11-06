@@ -19,7 +19,7 @@ let downloadRec = document.getElementById("downloadRec")
 
 function initiateRecording(mediaStreams) {
     recordedChunks = []
-    mediaRecorder = new MediaRecorder(mediaStreams, {mimeType: "audio/webm"})
+    mediaRecorder = new MediaRecorder(mediaStreams, {mimeType: "video/webm; codecs=vp8,opus"})
 
     mediaRecorder.ondataavailable = (e) => {
         console.log("recording chunks size ", e.data.size)
@@ -50,8 +50,18 @@ function initiateRecording(mediaStreams) {
     mediaRecorder.onstop = async () => {
         console.log("on stop is called")
         downloadRec.disabled = false
-        blob = new Blob(recordedChunks, {type: "audio/webm"})
+        blob = new Blob(recordedChunks, {type: "video/webm"})
         const url = window.URL.createObjectURL(blob)
+
+
+        var videoRecPlayer = document.getElementById('demoVideoControl');
+        videoRecPlayer.srcObject = null;
+        videoRecPlayer.load();
+        videoRecPlayer.src = url;
+        videoRecPlayer.play();
+        videoRecPlayer.style.display = "block"
+
+
         console.log(blob)
         downloadRec.setAttribute("href", url)
         downloadRec.setAttribute("download", "test.weba")
@@ -117,13 +127,15 @@ function showBtns() {
 async function startCall() {
     try {
         mediaStreams = await navigator.mediaDevices.getUserMedia(
-            {video: false, audio: true});
+            {video: true, audio: true});
 
     } catch (e) {
         console.log(e);
     }
+
     document.getElementById("mediaControl").srcObject = mediaStreams
     showBtns()
+
     mediaTrack = mediaStreams.getAudioTracks()[0]
 
 
@@ -139,11 +151,16 @@ async function startCall() {
         )
     }
 
-    mediaStreams.getAudioTracks().forEach(track => {
+    mediaStreams.getTracks().forEach(track => {
         console.log(track)
     })
 }
 
+stopBtn.onclick = (e) => {
+    mediaStreams.getAudioTracks()[0].enabled = false
+    mediaStreams.getVideoTracks()[0].enabled = false
+
+}
 document.getElementById("startButton").onclick = async () => {
     await startCall()
 }
